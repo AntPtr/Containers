@@ -1,0 +1,17 @@
+services:
+  app:
+    # ...
+    image: front-end
+  nginx:
+    image: nginx:1.20.1
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - 8080:80
+    container_name: reverse-proxy
+    depends_on:
+      - app
+  backend:
+    image: backdev
+    ports:
+      - 3000:3000
